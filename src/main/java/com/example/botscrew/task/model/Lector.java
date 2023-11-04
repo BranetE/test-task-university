@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -23,10 +25,13 @@ public class Lector {
     private Long id;
     @Enumerated(EnumType.STRING)
     private Degree degree;
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
-    @ManyToMany(mappedBy = "lectors")
+    @Column
+    private String name;
+    @Column
+    private Double salary;
+    @ManyToMany
+    @JoinTable(name = "department_lector",
+            joinColumns = @JoinColumn(name = "lector_id"),
+            inverseJoinColumns = @JoinColumn(name = "department_id"))
     private List<Department> departments;
 }
