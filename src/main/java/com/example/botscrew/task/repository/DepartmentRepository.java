@@ -18,7 +18,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
             "WHERE department.name=:departmentName", nativeQuery = true)
     String getHeadOfDepartmentName(@Param("departmentName") String departmentName);
 
-    @Query(value = "SELECT COUNT() FROM department_lector " +
+    @Query(value = "SELECT COUNT(*) FROM department_lector " +
             "JOIN department ON department_id=id " +
             "WHERE department.name=:departmentName", nativeQuery = true)
     Integer countEmployeesInDepartment(@Param("departmentName") String departmentName);
