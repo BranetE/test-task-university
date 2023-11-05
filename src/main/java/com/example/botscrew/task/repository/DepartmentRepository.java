@@ -6,12 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
-    Boolean existsByName(String departmentName);
+    boolean existsByName(String departmentName);
 
     @Query(value = "SELECT lector.name FROM department " +
             "JOIN lector ON head_id=lector.id " +
@@ -34,5 +35,5 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
             "JOIN lector on lector.id = department_lector.lector_id " +
             "WHERE department.name = :departmentName " +
             "GROUP BY lector.degree", nativeQuery = true)
-    Map<String, Integer> getDepartmentStatistics(@Param("departmentName") String departmentName);
+    List<Object[]> getDepartmentStatistics(@Param("departmentName") String departmentName);
 }
