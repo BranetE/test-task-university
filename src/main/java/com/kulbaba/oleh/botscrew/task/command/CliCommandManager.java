@@ -1,6 +1,6 @@
-package com.example.botscrew.task.command;
+package com.kulbaba.oleh.botscrew.task.command;
 
-import com.example.botscrew.task.service.UniversityService;
+import com.kulbaba.oleh.botscrew.task.service.UniversityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

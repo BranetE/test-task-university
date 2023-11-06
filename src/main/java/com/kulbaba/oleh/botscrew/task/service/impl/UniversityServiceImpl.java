@@ -1,8 +1,8 @@
-package com.example.botscrew.task.service.impl;
+package com.kulbaba.oleh.botscrew.task.service.impl;
 
-import com.example.botscrew.task.repository.DepartmentRepository;
-import com.example.botscrew.task.repository.LectorRepository;
-import com.example.botscrew.task.service.UniversityService;
+import com.kulbaba.oleh.botscrew.task.repository.DepartmentRepository;
+import com.kulbaba.oleh.botscrew.task.repository.LectorRepository;
+import com.kulbaba.oleh.botscrew.task.service.UniversityService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.example.botscrew.task.constant.ErrorMessage.DEPARTMENT_NOT_FOUND;
-import static com.example.botscrew.task.constant.ErrorMessage.LECTORS_NOT_FOUND;
+import static com.kulbaba.oleh.botscrew.task.constant.ErrorMessage.DEPARTMENT_NOT_FOUND;
+import static com.kulbaba.oleh.botscrew.task.constant.ErrorMessage.LECTORS_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor

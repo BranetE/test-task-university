@@ -1,6 +1,6 @@
-package com.example.botscrew.task.repository;
+package com.kulbaba.oleh.botscrew.task.repository;
 
-import com.example.botscrew.task.model.Lector;
+import com.kulbaba.oleh.botscrew.task.model.Lector;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

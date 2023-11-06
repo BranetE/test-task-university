@@ -1,4 +1,4 @@
-package com.example.botscrew.task.service;
+package com.kulbaba.oleh.botscrew.task.service;
 
 import java.util.List;
 import java.util.Map;

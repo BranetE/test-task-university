@@ -1,4 +1,4 @@
-package com.example.botscrew.task.constant;
+package com.kulbaba.oleh.botscrew.task.constant;
 
 public class ErrorMessage {
     public static final String DEPARTMENT_NOT_FOUND = "Can't find department with the name: ";

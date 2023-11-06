@@ -1,6 +1,6 @@
-package com.example.botscrew.task;
+package com.kulbaba.oleh.botscrew.task;
 
-import com.example.botscrew.task.command.CliCommandManager;
+import com.kulbaba.oleh.botscrew.task.command.CliCommandManager;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;

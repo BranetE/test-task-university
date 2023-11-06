@@ -1,4 +1,4 @@
-package com.example.botscrew.task;
+package com.kulbaba.oleh.botscrew.task;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,13 +1,12 @@
-package com.example.botscrew.task.repository;
+package com.kulbaba.oleh.botscrew.task.repository;
 
-import com.example.botscrew.task.model.Department;
+import com.kulbaba.oleh.botscrew.task.model.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {

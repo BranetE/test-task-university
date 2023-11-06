@@ -1,4 +1,4 @@
-package com.example.botscrew.task.model;
+package com.kulbaba.oleh.botscrew.task.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
