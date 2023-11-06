@@ -1,49 +1,35 @@
-package com.example.botscrew.task.util;
+package com.example.botscrew.task.command;
 
 import com.example.botscrew.task.service.UniversityService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import static java.lang.System.*;
 
 @Component
 @RequiredArgsConstructor
-public class AppRunner implements CommandLineRunner {
+public class CliCommandManager {
 
     private final UniversityService universityService;
 
-    @Override
-    public void run(String... args) throws Exception {
-        Scanner sc = new Scanner(in);
-        out.println("\n===============================");
-        out.println("=========Enter command=========");
-        out.println("===============================");
-        while (sc.hasNext()) {
-            try {
-                handleUserInput(sc.nextLine());
-            }catch (RuntimeException e){
-                out.println(e.getMessage());
-            }
-        }
-    }
-
-    private void handleUserInput(String input) {
+    public void handleUserInput(String input) {
         if (input.startsWith("Who is head of department ")){
             String departmentName = input.substring("Who is head of department ".length()).trim();
             String headOfDepartment = universityService.getHeadOfDepartment(departmentName);
             out.println("Head of " + departmentName + " department is " + headOfDepartment);
         } else if (input.startsWith("Show ") && input.endsWith(" statistics")) {
-            String[] parts = input.split(" ");
-            if(parts.length == 3){
-                String departmentName = parts[1];
-                Map<String, Long> statistics = universityService.getDepartmentStatistics(departmentName);
-                statistics.forEach((key, value) -> out.println(key.replace("_", " ").toLowerCase() + " - " + value));
-            }
+            LinkedList<String> parts = new LinkedList<>(Arrays.asList(input.split(" ")));
+            parts.removeAll(List.of("Show", "statistics"));
+            String departmentName = String.join(" ", parts);
+            Map<String, Long> statistics = universityService.getDepartmentStatistics(departmentName);
+            statistics.entrySet().stream()
+                    .sorted(Map.Entry.comparingByKey())
+                    .forEach(e -> out.println(e.getKey().replace("_", " ").toLowerCase() + "s" + " - " + e.getValue()));
         } else if (input.startsWith("Show the average salary for the department ")) {
             String departmentName = input.substring("Show the average salary for the department ".length()).trim();
             Double averageSalary = universityService.getAverageSalaryByDepartment(departmentName);

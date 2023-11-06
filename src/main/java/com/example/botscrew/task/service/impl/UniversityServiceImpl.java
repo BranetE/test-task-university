@@ -7,10 +7,12 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.example.botscrew.task.constant.ErrorMessage.DEPARTMENT_NOT_FOUND;
+import static com.example.botscrew.task.constant.ErrorMessage.LECTORS_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class UniversityServiceImpl implements UniversityService {
     @Override
     public String getHeadOfDepartment(String departmentName) {
         if(Boolean.FALSE.equals(departmentRepository.existsByName(departmentName))){
-            throw new EntityNotFoundException("Can't find department with the name: " + departmentName);
+            throw new EntityNotFoundException(DEPARTMENT_NOT_FOUND + departmentName);
         }else {
             return departmentRepository.getHeadOfDepartmentName(departmentName);
         }
@@ -31,43 +33,37 @@ public class UniversityServiceImpl implements UniversityService {
     @Override
     public Double getAverageSalaryByDepartment(String departmentName) {
         if(Boolean.FALSE.equals(departmentRepository.existsByName(departmentName))){
-            throw new EntityNotFoundException("Can't find department with the name: " + departmentName);
+            throw new EntityNotFoundException(DEPARTMENT_NOT_FOUND + departmentName);
         }else {
             return departmentRepository.calculateAverageSalaryByDepartment(departmentName);
-//            System.out.println("The average salary of " + departmentName + " is " + averageSalaryByDepartment);
         }
     }
 
     @Override
     public Map<String, Long> getDepartmentStatistics(String departmentName) {
         if(Boolean.FALSE.equals(departmentRepository.existsByName(departmentName))){
-            throw new EntityNotFoundException("Can't find department with the name: " + departmentName);
+            throw new EntityNotFoundException(DEPARTMENT_NOT_FOUND + departmentName);
         }else {
             return departmentRepository.getDepartmentStatistics(departmentName).stream()
                     .collect(Collectors.toMap(e -> (String) e[0], e -> (Long) e[1]));
-//            System.out.println("Statistics for " + departmentName + " department:");
-//            departmentStatistics
-//                    .forEach(
-//                            e -> System.out.println(e[0].toString().toLowerCase() + "s - " + e[1])
-//                    );
         }
     }
 
     @Override
     public Integer getEmployeeCountByDepartment(String departmentName) {
         if(Boolean.FALSE.equals(departmentRepository.existsByName(departmentName))){
-            throw new EntityNotFoundException("Can't find department with the name: " + departmentName);
+            throw new EntityNotFoundException(DEPARTMENT_NOT_FOUND + departmentName);
         }else {
             return departmentRepository.countEmployeesInDepartment(departmentName);
-//            System.out.println(employeeCountByDepartment);
         }
     }
 
     @Override
     public List<String> getLectorsByTemplate(String template) {
-        return lectorRepository.findLectorsByNameContaining(template);
-//        lectorNames.forEach(
-//                e -> System.out.println(e + ", ")
-//        );
+        List<String> lectors = lectorRepository.findLectorsByNameContaining(template);
+        if(lectors.isEmpty()){
+            throw new EntityNotFoundException(LECTORS_NOT_FOUND + template);
+        }
+        return lectors;
     }
 }
