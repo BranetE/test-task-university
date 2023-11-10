@@ -1,7 +1,6 @@
 package com.kulbaba.oleh.botscrew.task;
 
-import com.kulbaba.oleh.botscrew.task.command.CliCommandManager;
-import jakarta.persistence.EntityNotFoundException;
+import com.kulbaba.oleh.botscrew.task.command.CommandInvoker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +15,7 @@ import static java.lang.System.out;
 @RequiredArgsConstructor
 public class BotsCrewTestApplication implements CommandLineRunner {
 
-    private final CliCommandManager cliCommandManager;
+    private final CommandInvoker commandInvoker;
 
     public static void main(String[] args) {
         SpringApplication.run(BotsCrewTestApplication.class, args);
@@ -41,9 +40,9 @@ public class BotsCrewTestApplication implements CommandLineRunner {
                 break;
             }
             try {
-                cliCommandManager.handleUserInput(userInput);
+                commandInvoker.handleUserInput(userInput);
                 out.println("---------------------------------------");
-            }catch (EntityNotFoundException e){
+            }catch (RuntimeException e){
                 out.println(e.getMessage());
                 out.println("---------------------------------------");
             }
