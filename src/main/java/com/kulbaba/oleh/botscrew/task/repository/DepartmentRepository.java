@@ -1,6 +1,7 @@
 package com.kulbaba.oleh.botscrew.task.repository;
 
 import com.kulbaba.oleh.botscrew.task.model.Department;
+import com.kulbaba.oleh.botscrew.task.repository.projection.DepartmentStatistic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,10 +30,10 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
             "WHERE department.name=:departmentName", nativeQuery = true)
     Double calculateAverageSalaryByDepartment(@Param("departmentName") String departmentName);
 
-    @Query(value = "SELECT lector.degree, COUNT(*) FROM department_lector " +
+    @Query(value = "SELECT lector.degree as degree, COUNT(*) as total FROM department_lector " +
             "JOIN department on department.id = department_lector.department_id " +
             "JOIN lector on lector.id = department_lector.lector_id " +
             "WHERE department.name = :departmentName " +
             "GROUP BY lector.degree", nativeQuery = true)
-    List<Object[]> getDepartmentStatistics(@Param("departmentName") String departmentName);
+    List<DepartmentStatistic> getDepartmentStatistics(@Param("departmentName") String departmentName);
 }

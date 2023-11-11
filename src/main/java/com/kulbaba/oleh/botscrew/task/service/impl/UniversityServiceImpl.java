@@ -2,6 +2,7 @@ package com.kulbaba.oleh.botscrew.task.service.impl;
 
 import com.kulbaba.oleh.botscrew.task.repository.DepartmentRepository;
 import com.kulbaba.oleh.botscrew.task.repository.LectorRepository;
+import com.kulbaba.oleh.botscrew.task.repository.projection.DepartmentStatistic;
 import com.kulbaba.oleh.botscrew.task.service.UniversityService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class UniversityServiceImpl implements UniversityService {
 
     @Override
     public String getHeadOfDepartment(String departmentName) {
-        if(Boolean.FALSE.equals(departmentRepository.existsByName(departmentName))){
+        if(!departmentRepository.existsByName(departmentName)){
             throw new EntityNotFoundException(DEPARTMENT_NOT_FOUND + departmentName);
         }else {
             return departmentRepository.getHeadOfDepartmentName(departmentName);
@@ -32,7 +33,7 @@ public class UniversityServiceImpl implements UniversityService {
 
     @Override
     public Double getAverageSalaryByDepartment(String departmentName) {
-        if(Boolean.FALSE.equals(departmentRepository.existsByName(departmentName))){
+        if(!departmentRepository.existsByName(departmentName)){
             throw new EntityNotFoundException(DEPARTMENT_NOT_FOUND + departmentName);
         }else {
             return departmentRepository.calculateAverageSalaryByDepartment(departmentName);
@@ -41,17 +42,17 @@ public class UniversityServiceImpl implements UniversityService {
 
     @Override
     public Map<String, Long> getDepartmentStatistics(String departmentName) {
-        if(Boolean.FALSE.equals(departmentRepository.existsByName(departmentName))){
+        if(!departmentRepository.existsByName(departmentName)){
             throw new EntityNotFoundException(DEPARTMENT_NOT_FOUND + departmentName);
         }else {
             return departmentRepository.getDepartmentStatistics(departmentName).stream()
-                    .collect(Collectors.toMap(e -> (String) e[0], e -> (Long) e[1]));
+                    .collect(Collectors.toMap(DepartmentStatistic::getDegree, DepartmentStatistic::getTotal));
         }
     }
 
     @Override
     public Integer getEmployeeCountByDepartment(String departmentName) {
-        if(Boolean.FALSE.equals(departmentRepository.existsByName(departmentName))){
+        if(!departmentRepository.existsByName(departmentName)){
             throw new EntityNotFoundException(DEPARTMENT_NOT_FOUND + departmentName);
         }else {
             return departmentRepository.countEmployeesInDepartment(departmentName);
